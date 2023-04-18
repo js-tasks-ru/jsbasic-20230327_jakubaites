@@ -4,7 +4,7 @@ function initCarousel() {
       slides = document.querySelectorAll('.carousel__slide'),
       arrowRight = document.querySelector('.carousel__arrow_right'),
       arrowLeft = document.querySelector('.carousel__arrow_left'),
-      widthSlide = slides[0].offsetWidth,
+      widthSlide = inner.offsetWidth / slides.length,
       counter = 1,
       position = 0;
       
