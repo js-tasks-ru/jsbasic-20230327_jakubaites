@@ -42,14 +42,14 @@ export default class Carousel {
     };
 
     /*create eventListener*/
-    this.widthSlide = 500; //this.inner.offsetWidth/this.slides.length и this.slideElem.offsetWidth не работают. Видимо элементы еще не созданы 
     this.counter = 1;
     this.position = 0;
       
     this.arrowLeft.style.display = 'none';
 
     this.carousel.addEventListener('click', (event) => {
-    if(event.target == this.arrowRight) {
+     this.widthSlide = this.slideElem.offsetWidth;
+      if(event.target == this.arrowRight) {
     this.position -= this.widthSlide;
     this.inner.style.transform = `translateX(${this.position}px)`;
     ++this.counter;
