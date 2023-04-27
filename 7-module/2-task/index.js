@@ -47,9 +47,7 @@ export default class Modal {
   }
 
   setBody(node) {
-    if(this.modal.querySelector('.modal__body').childNodes) { // Кажется я намудрил здесь с проверкой на пустоту?))
-      this.modal.querySelector('.modal__body').childNodes.forEach(item => item.remove());
-    } 
+    this.modal.querySelector('.modal__body').innerHTML = '';
     this.modal.querySelector('.modal__body').append(node);
   }
 
@@ -59,9 +57,9 @@ export default class Modal {
     document.removeEventListener('keydown', this.eventEscape);
   }
 
-  eventEscape(event) {     // Если не вытащить функцию-обработчик в метод, ее локальная видимость создает ошибку
+  eventEscape = (event) => {
     if(event.code == `Escape`) {
-      this.modal.close();
-    }
-  }
+      this.close();
+    } 
+   }
 }
