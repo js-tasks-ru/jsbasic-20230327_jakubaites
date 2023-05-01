@@ -151,7 +151,6 @@ export default class Cart {
   }
 
   onSubmit(event) {
-    document.querySelector('form.cart-form').addEventListener('submit', event =>{
       event.preventDefault();
       document.querySelector('[type="submit"]').classList.add('is-loading');
       let response = await fetch(`https://httpbin.org/post`, {
@@ -161,24 +160,22 @@ export default class Cart {
       // ответ
       if (response.ok) { 
         newModal.setTitle('Success!');
-
+        this.cartItems = [];
+        newModal = createElement (`
+        <div class="modal__body-inner">
+        <p>
+        Order successful! Your order is being cooked :) <br>
+        We’ll notify you about delivery time shortly.<br>
+        <img src="/assets/images/delivery.gif">
+        </p>
+        </div>
+        `);
       }
 
-    })
-  };
+  }
 
   addEventListeners() {
-    this.cartIcon.elem.onclick = () => this.renderModal();
-    this.cartItems = [];
-    newModal = createElement (`
-      <div class="modal__body-inner">
-       <p>
-       Order successful! Your order is being cooked :) <br>
-       We’ll notify you about delivery time shortly.<br>
-       <img src="/assets/images/delivery.gif">
-       </p>
-     </div>
-    `);
+    this.cartIcon.elem.onclick = () => this.renderModal(); 
   }
 }
 
