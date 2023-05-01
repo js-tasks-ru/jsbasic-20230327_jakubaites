@@ -18,7 +18,7 @@ export default class ProductCard {
   this.elemProduct.addEventListener('click', function(e) {
     if(e.target.tagName != 'BUTTON') return;
     let event = new CustomEvent('product-add', { 
-      detail: product.id, // Это точно правильно? Ведь тут this будет указывать на this.elemProduct?
+      detail: product.id, 
       bubbles: true,
     });
     e.target.dispatchEvent(event);
