@@ -1,6 +1,6 @@
 import createElement from '../../assets/lib/create-element.js';
 import escapeHtml from '../../assets/lib/escape-html.js';
-
+import CartIcon from '../1-task/index.js';
 import Modal from '../../7-module/2-task/index.js';
 
 export default class Cart {
@@ -42,7 +42,7 @@ export default class Cart {
   }
 
   isEmpty() {
-    return this.cartItems.length == 0;
+    return this.cartItems.length === 0;
   }
 
   getTotalCount() {
@@ -77,6 +77,7 @@ export default class Cart {
         </div>
       </div>
     </div>`);
+    // Нужен обработчик
   }
 
   renderOrderForm() {
@@ -109,23 +110,25 @@ export default class Cart {
     let newModal = new Modal();
     newModal.setTitle('Your order');
     newModal.open();
+    
     let div = document.createElement('div');
-    for (let item of cartItems) {
-      div.append(renderProduct(item.product, item.count));
+    for (let item of this.cartItems) {  // add this
+      div.append(this.renderProduct(item.product, item.count)); //add this.
     }
-    div.append( renderOrderForm());
-    newModal.querySelector('.modal__body').append(div);
+    div.append( this.renderOrderForm()); //add this
+    
+    document.querySelector('.modal__body').append(div);
     
     // add EventListeners 
     // изменение кол-ва товара
-    div.addEventListener('click', (event) => {
-      let plus = div.querySelector('.cart-counter__button_plus');
-      let minus = div.querySelector('.cart-counter__button_minus');
+    newModal.addEventListener('click', (event) => { // div > newModal
+      let plus = newModal.querySelector('.cart-counter__button_plus');
+      let minus = newModal.querySelector('.cart-counter__button_minus');
       let productId = event.target.closest('[data-product-id]').getAttribute('data-product-id');
       if(event.target == plus) {
-        updateProductCount(productId, 1);
+        this.updateProductCount(productId, 1);
       } else if (event.target == minus) {
-        updateProductCount(productId, -1);
+        this.updateProductCount(productId, -1);
       }
     });
     // слушатель submit
@@ -150,7 +153,7 @@ export default class Cart {
     }
   }
 
-  onSubmit(event) {
+  async onSubmit(event) {
       event.preventDefault();
       document.querySelector('[type="submit"]').classList.add('is-loading');
       let response = await fetch(`https://httpbin.org/post`, {
