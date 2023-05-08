@@ -52,7 +52,7 @@ export default class Modal {
   }
 
   close() {
-    document.body.classList.remove('is-modal-open');  // Работает только для слушателя, повешанного на сам эл-т. 
+    document.body.classList.remove('is-modal-open');  
     this.modal.remove();
     document.removeEventListener('keydown', this.eventEscape);
   }
