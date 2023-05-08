@@ -49,10 +49,7 @@ export default class Cart {
   }
 
   getTotalPrice() {
-    return this.cartItems.reduce(
-      (sum, item) => sum + item.product.price * item.count,
-      0
-    );
+    return this.cartItems.reduce((sum, item) => sum + item.product.price * item.count,0);
   }
 
   renderProduct(product, count) {
@@ -124,7 +121,7 @@ export default class Cart {
     this.modal.setBody(this.modalBody);
 
     // when modal is closed, we forget about it, don't update it any more
-    this.modal.elem.addEventListener('modal-close', () => {
+    this.modal.modal.addEventListener('modal-close', () => {
       this.modal = null;
       this.modalBody = null;
     });
@@ -176,25 +173,27 @@ export default class Cart {
     let form = this.modalBody.querySelector('.cart-form');
     let userData = new FormData(form);
 
-    await fetch('https://httpbin.org/post', { method: 'POST', body: userData });
-
-    this.modal.setTitle("Success!");
-    this.modalBody
-      .querySelector('button[type="submit"]')
-      .classList.remove("is-loading");
-
-    this.cartItems = [];
-    this.cartIcon.update(this);
-
-    this.modalBody.innerHTML = `
-      <div class="modal__body-inner">
-        <p>
-          Order successful! Your order is being cooked :) <br>
-          We’ll notify you about delivery time shortly.<br>
-          <img src="/assets/images/delivery.gif">
-        </p>
-      </div>
-      `;
+    let response = await fetch('https://httpbin.org/post', { method: 'POST', body: userData });
+    if (response.ok) {
+      this.modal.setTitle("Success!");
+      this.modalBody
+        .querySelector('button[type="submit"]')
+        .classList.remove("is-loading");
+  
+      this.cartItems = [];
+      this.cartIcon.update(this);
+  
+      this.modalBody.innerHTML = `
+        <div class="modal__body-inner">
+          <p>
+            Order successful! Your order is being cooked :) <br>
+            We’ll notify you about delivery time shortly.<br>
+            <img src="/assets/images/delivery.gif">
+          </p>
+        </div>
+        `;
+    };
+   
   };
 
   addEventListeners() {
