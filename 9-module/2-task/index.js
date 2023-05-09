@@ -65,6 +65,6 @@ export default class Main {
     document.getElementById('vegeterian-checkbox').addEventListener('change', (event) =>{
         this.productsGrid.updateFilter({vegeterianOnly: event.target.checked});
     });
-    
+    //
   }
 }
