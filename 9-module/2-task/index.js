@@ -54,11 +54,11 @@ export default class Main {
         this.productsGrid.updateFilter({maxSpiciness: event.detail});
     });
 
-    this.ribbonMenu.elem.addEventListener('ribbon-select', (event) =>{
+    this.ribbonMenu.elem.addEventListener('ribbon-select', (event) =>{  // error
         this.productsGrid.updateFilter({category: event.detail});
     });
     // Фильтрация по изменению чекбоксов
-    document.getElementById('nuts-checkbox').addEventListener('change', (event) =>{
+    document.getElementById('nuts-checkbox').addEventListener('change', (event) =>{   //error
         this.productsGrid.updateFilter({noNuts: event.target.checked});
     });
 
