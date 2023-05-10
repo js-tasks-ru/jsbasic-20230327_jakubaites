@@ -23,7 +23,7 @@ export default class Main {
     this.ribbonMenu = new RibbonMenu(categories);
     document.querySelector('div[data-ribbon-holder]').append(this.ribbonMenu.elem);
     // stepSlider
-    this.stepSlider = new StepSlider(5, 3);
+    this.stepSlider = new StepSlider({steps: 5, value: 3});
     document.querySelector('div[data-slider-holder]').append(this.stepSlider.elem);
     // cartIcon
     this.cartIcon = new CartIcon();
